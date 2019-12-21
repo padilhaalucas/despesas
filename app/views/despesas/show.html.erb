@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @despesa.nome %>
+</p>
+
+<p>
+  <strong>Tipo:</strong>
+  <%= @despesa.tipo %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @despesa.user %>
+</p>
+
+<%= link_to 'Edit', edit_despesa_path(@despesa) %> |
+<%= link_to 'Back', despesas_path %>
