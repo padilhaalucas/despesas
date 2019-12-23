@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<div class="container-fluid despesaspage">
+
+  <div class="row">
+    <div class="col-sm-12 col-md-12">
+      <h1 class="titulodespesa">Despesas</h1>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-sm-12 cards">
+      <% @despesas.each do |despesa| %>
+        <div class="card despesa-result" data-despesa-class="<%= despesa.id %>" id="despesa-<%= despesa.id %>">
+          <div class="card-body">
+            <div class="card-title">
+              <h5>Nome</h5>
+              <h3><%= despesa.nome %></h3>
+            </div>
+
+            <div class="card-text">
+              <h5>Tipo</h5>
+              <h3><%= despesa.tipo %></h3>
+              <% if despesa.valor.present? %>
+                <h5>Valor</h5>
+                <h3><%= "#{despesa.valor}€" %></h3>
+              <% end %>
+            </div>
+            <%= link_to 'Mostrar', despesa, class: "btn btn-primary buttons" %>
+            <%= link_to 'Editar', edit_despesa_path(despesa), class: "btn btn-primary buttons" %>
+            <%= link_to despesa, class: "delete-icon", remote: true do %>
+              <i class="far fa-trash-alt"></i>
+            <% end %>
+            </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <br>
+
+  <div class="row">
+    <div class="col-sm-12 col-md-4 cards">
+      <%= link_to 'Nova Despesa', new_despesa_path, class: "btn btn-primary lastbuttons" %>
+      <%= link_to 'Voltar à pagina inicial', root_path, class: "btn btn-primary lastbuttons" %>
+    </div>
+  </div>
+</div>

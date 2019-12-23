@@ -10,14 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_21_161853) do
+ActiveRecord::Schema.define(version: 2019_12_21_165537) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "balancos", force: :cascade do |t|
+    t.integer "valor"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_balancos_on_user_id"
+  end
+
   create_table "despesas", force: :cascade do |t|
     t.string "nome"
     t.string "tipo"
+    t.integer "valor"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -26,6 +33,7 @@ ActiveRecord::Schema.define(version: 2019_12_21_161853) do
 
   create_table "entradas", force: :cascade do |t|
     t.string "nome"
+    t.integer "valor"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -45,6 +53,7 @@ ActiveRecord::Schema.define(version: 2019_12_21_161853) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "balancos", "users"
   add_foreign_key "despesas", "users"
   add_foreign_key "entradas", "users"
 end

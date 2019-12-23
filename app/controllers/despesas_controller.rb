@@ -1,9 +1,11 @@
 class DespesasController < ApplicationController
   before_action :set_despesa, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
+
 
   # GET /despesas
   # GET /despesas.json
-  def index
+  def home
     @despesas = Despesa.all
   end
 
@@ -15,6 +17,7 @@ class DespesasController < ApplicationController
   # GET /despesas/new
   def new
     @despesa = Despesa.new
+    @despesa.user = current_user
   end
 
   # GET /despesas/1/edit
@@ -53,11 +56,21 @@ class DespesasController < ApplicationController
 
   # DELETE /despesas/1
   # DELETE /despesas/1.json
+  # def destroy
+  #   @despesa.destroy
+  #   respond_to do |format|
+  #     format.html { redirect_to home_path, notice: 'Despesa was successfully destroyed.' }
+  #     format.json { head :no_content }
+  #   end
+
+  # end
   def destroy
+    @despesa.user = current_user
+
     @despesa.destroy
+
     respond_to do |format|
-      format.html { redirect_to despesas_url, notice: 'Despesa was successfully destroyed.' }
-      format.json { head :no_content }
+      format.js
     end
   end
 
@@ -69,6 +82,6 @@ class DespesasController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def despesa_params
-      params.require(:despesa).permit(:nome, :tipo, :user_id)
+      params.require(:despesa).permit(:nome, :tipo, :valor, :user_id)
     end
 end
